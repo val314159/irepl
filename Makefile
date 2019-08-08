@@ -1,1 +1,1 @@
-all: ; ./irepl
+all: ; bin/irepl

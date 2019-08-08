@@ -17,5 +17,6 @@
   (handler-case (print (linedit:linedit :prompt ">>"))
     (interactive-interrupt() (format t "*BRK*"))
     (end-of-file()           (format t "*EOF*~%"))))
+(export (defvar *version* "0.1.2"))
 (export (defun main()
   (loop :as string = (get-string) :while string :do (eval-string string))))
