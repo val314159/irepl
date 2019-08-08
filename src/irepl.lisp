@@ -1,6 +1,6 @@
 (defpackage #.(string-upcase (pathname-name (or *compile-file-pathname* *load-pathname*)))
-            (:use :cl :linedit)
-            (:import-from :sb-sys :interactive-interrupt))
+            (:use #:cl #:linedit)
+            (:import-from #:sb-sys #:interactive-interrupt))
 (in-package #.(string-upcase (pathname-name (or *compile-file-pathname* *load-pathname*))))
 (set-macro-character
  #\&
