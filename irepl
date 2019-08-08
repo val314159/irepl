@@ -1,0 +1,6 @@
+#| -*- lisp -*-
+exec /usr/local/bin/sbcl --script $0 $* # |#
+(format t "irepl v0.1.0~%")
+(load "~/quicklisp/setup")
+(ql:quickload :irepl :silent t)
+(irepl:main)
