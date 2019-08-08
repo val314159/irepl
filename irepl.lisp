@@ -15,8 +15,6 @@
            (error(e)      (format t "~% ;; ERROR: ~A~%" e)))))
 (defun get-string()
   (handler-case (print (linedit:linedit :prompt ">>"))
-    (error(e)      (format t "~% ;; XERROR: ~A~%" e))
-    (t(e)      (format t "~% ;; ZXERROR: ~A~%" e))
     (interactive-interrupt() (format t "*BRK*"))
     (end-of-file()           (format t "*EOF*~%"))))
 (export (defun main()
