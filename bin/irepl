@@ -3,4 +3,4 @@ exec /usr/local/bin/sbcl --script $0 $* # |#
 (load "~/quicklisp/setup")
 (ql:quickload :irepl :silent t)
 (in-package @)
-(main)
+(irepl "~/history")

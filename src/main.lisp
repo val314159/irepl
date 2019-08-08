@@ -1,7 +1,8 @@
 (in-package asdf/user)
-(defpackage @ (:use :cl :linedit)
+(defpackage #.$$ (:use :cl :linedit)
   (:import-from sb-sys #:interactive-interrupt))
-(in-package @)
+(in-package #.$$)
+(setf linedit::*history* "~/history")
 (set-macro-character #\&
  #'(lambda(stream char)
      (declare (ignore char))
@@ -17,9 +18,16 @@
     (interactive-interrupt() (format t "*BRK*"))
     (end-of-file()           (format t "*EOF*~%"))))
 (export
- (defvar *version* "0.1.3"))
+ (defvar *version* "0.1.5"))
 (export
- (defun main()
-   (format t " ;; ~a v~a~%" @ *version*)
+ (defun irepl(linedit::*history*)
+   (format t " ;; ~a v~a~%" asdf/user::$$ *version*)
    (loop :as string = (get-string)
       :while string :do (eval-string string))))
+(in-package :linedit)
+;; super-hacky, but better than putting empty lines in the history.
+(defun get-finished-string (editor)
+  (if (plusp (length (get-string editor)))
+      (buffer-push (get-string editor) (editor-history editor)))
+  (newline editor)
+  (get-string editor))

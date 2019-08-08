@@ -10,5 +10,10 @@
  #'(lambda(stream char)
      (declare (ignore char) (ignore stream))
      (this-file)))
-(defsystem O :components ((:file O))
+
+(defun $$$() @)
+
+(defvar $$ @)
+
+(defsystem O :components ((:file "main"))
 	   :pathname "src" :depends-on (:linedit))
