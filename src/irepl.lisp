@@ -1,9 +1,8 @@
-(defpackage #.(string-upcase (pathname-name (or *compile-file-pathname* *load-pathname*)))
-            (:use #:cl #:linedit)
-            (:import-from #:sb-sys #:interactive-interrupt))
-(in-package #.(string-upcase (pathname-name (or *compile-file-pathname* *load-pathname*))))
-(set-macro-character
- #\&
+(in-package asdf/user)
+(defpackage @ (:use :cl :linedit)
+  (:import-from sb-sys #:interactive-interrupt))
+(in-package @)
+(set-macro-character #\&
  #'(lambda(stream char)
      (declare (ignore char))
      (list (quote import) (read stream t nil t))))
@@ -12,11 +11,15 @@
      :with stream = (make-string-input-stream string)
      :do (handler-case (format t " ~A" (eval (read stream)))
            (end-of-file() (terpri) (loop-finish))
-           (error(e)      (format t "~% ;; ERROR: ~A~%" e)))))
+           (error(e)      (format t "~% ;; *ERR* ~A~%" e)))))
 (defun get-string()
   (handler-case (print (linedit:linedit :prompt ">>"))
     (interactive-interrupt() (format t "*BRK*"))
     (end-of-file()           (format t "*EOF*~%"))))
-(export (defvar *version* "0.1.2"))
-(export (defun main()
-  (loop :as string = (get-string) :while string :do (eval-string string))))
+(export
+ (defvar *version* "0.1.3"))
+(export
+ (defun main()
+   (format t " ;; ~a v~a~%" @ *version*)
+   (loop :as string = (get-string)
+      :while string :do (eval-string string))))

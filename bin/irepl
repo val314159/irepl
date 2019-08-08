@@ -2,5 +2,5 @@
 exec /usr/local/bin/sbcl --script $0 $* # |#
 (load "~/quicklisp/setup")
 (ql:quickload :irepl :silent t)
-(format t "irepl v~a~%" irepl:*version*)
-(irepl:main)
+(in-package @)
+(main)
